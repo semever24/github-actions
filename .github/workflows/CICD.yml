@@ -16,7 +16,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: Maven compile
       run: mvn compile
 
   security-check:
@@ -38,3 +38,18 @@ jobs:
       run: sudo apt install gitleaks -y
     - name: Gitleaks code scan
       run: gitleaks detect source . -r gitleaks-report.json -f json
+
+  test:
+    runs-on: self-hosted
+    needs: security-check
+    steps:
+    - name: Git code checkout
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Unit test cases
+      run: mvn test
