@@ -128,7 +128,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: semever/amro-bank:1.0
+        tags: semever/goldencat-bank:1.0
 
   deploy_to_kubernetes:
     runs-on: self-hosted
